@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load blog_tags %}
+{% load humanize %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<!-- start banner Area -->
+<section class="relative about-banner">
+	<div class="overlay overlay-bg"></div>
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">
+					{{post.title}}
+				</h1>
+				<p class="text-white link-nav"><a href="{% url 'main_index' %}">Home </a> <span
+						class="lnr lnr-arrow-right"></span><a href="{% url 'blog:index' %}">Blog </a> <span
+						class="lnr lnr-arrow-right"></span> {{post.title}}</p>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End banner Area -->
+
+<!-- Start post-content Area -->
+<section class="post-content-area single-post-area">
+	<div class="container">
+		<form method="POST">
+			{% csrf_token %}
+			<fieldset class="form-group">
+				{{ form|crispy }}
+			</fieldset>
+			<div class="form-group">
+				<button class="btn btn-outline-info" type="submit">Update</button>
+			</div>
+		</form>
+	</div>
+</section>
+
+<!-- End post-content Area -->
+{% endblock %}

@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load blog_tags %}
+{% load humanize %}
+{% block content %}
+
+<!-- start banner Area -->
+<section class="relative about-banner">
+	<div class="overlay overlay-bg"></div>
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">
+					{{post.title}}
+				</h1>
+				<p class="text-white link-nav"><a href="{% url 'main_index' %}">Home </a> <span
+						class="lnr lnr-arrow-right"></span><a href="{% url 'blog:index' %}">Blog </a> <span
+						class="lnr lnr-arrow-right"></span> {{post.title}}</p>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End banner Area -->
+
+<!-- Start post-content Area -->
+<section class="post-content-area single-post-area">
+	<div class="container">
+		<div class="row">
+			<div class="col-lg-8 posts-list">
+				<div class="single-post row">
+					<div class="col-lg-12">
+						<div class="feature-img">
+							<img class="img-fluid" src="{{post.image.url}}" alt="">
+						</div>
+					</div>
+					<div class="col-lg-12  meta-details">
+
+						<div class="user-details row">
+							<p class="user-name col-lg-3 col-sm-6"><a href="#">{{post.author.username}}</a> <span
+									class="lnr lnr-user"></span></p>
+							<p class="date col-lg-3 col-sm-6"><a href="#">{{post.published_date|date:"d M Y"}}</a> <span
+									class="lnr lnr-calendar-full"></span></p>
+							<p class="view col-lg-3 col-sm-6"><a href="#">{{post.counted_views}} Views</a> <span
+									class="lnr lnr-eye"></span></p>
+							<p class="comments col-lg-3 col-sm-6"><a href="#">{{ comments|length }} Comments</a> <span
+									class="lnr lnr-bubble"></span></p>
+							
+
+						</div>
+					</div>
+					<div class="col-lg-12 col-md-12">
+						<h3 class="mt-20 mb-20">{{post.title}}</h3>
+						<p>
+							{{post.content|safe}}
+						</p>
+						<br>
+						{% if post.author.username == request.user.username %}
+						<div class="form-group center">
+							<a type="submit" class="btn btn-warning btn-lg btn-block text-uppercase" href="{% url 'blog:update' pk=post.pk %}">Edit this post</a>
+							<a type="submit" class="btn btn-danger btn-lg btn-block text-uppercase" href="{% url 'blog:delete' pk=post.pk %}">Delete this post</a>
+						</div>
+						{% endif %}
+						<div class="col-lg-12  meta-details">
+							<div class="first-row">
+								<ul class="social-links">
+									<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+									<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+									<li><a href="#"><i class="fa fa-github"></i></a></li>
+									<li><a href="#"><i class="fa fa-behance"></i></a></li>
+								</ul>
+								<ul class="tags">
+									{% for cat in post.category.all %}
+											<li><a href="{% url 'blog:category' cat_name=cat.name %}">{{ cat.name }}</a> {% if not forloop.last %},{% endif %}</li>
+									{% endfor %}
+								</ul>
+								
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+				<div class="comments-area">
+					<h4>{{ comments|length }} Comments</h4>
+					
+					<div class="comment-list">
+					{% for comment in comments %}
+					
+						<div class="single-comment justify-content-between d-flex">
+							<div class="user justify-content-between d-flex">
+								<div class="thumb">
+									<img src="{% static 'img/blog/c1.jpg' %}" alt="">
+								</div>
+								<div class="desc">
+									<h5><a href="#">{{comment.name}}</a></h5>
+									<p class="date">{{comment.created_date|naturalday}} </p>
+									<p class="comment">
+										{{comment.message}}
+									</p>
+								</div>
+							</div>
+							<!--
+							<div class="reply-btn">
+								<a href="" class="btn-reply text-uppercase">reply</a>
+							</div>
+							-->
+						</div>
+						{% empty %}
+						<div class="single-comment justify-content-between d-flex">
+						<p class="center"> no comments here be the first one to tell your thoughts </p>
+					</div>
+					{% endfor %}
+				</div>
+			</div>
+			<div class="form-group center mt-5">
+				<a type="submit" class="btn btn-success btn-lg btn-block text-uppercase" href="{% url 'blog:comment' pk=post.pk %}">Leave a Comment</a>
+			</div>
+				
+			</div>
+			<div class="col-lg-4 sidebar-widgets">
+				<div class="widget-wrap">
+					
+					{% include 'blog/blog-search.html' %}
+								
+					{% include 'blog/blog-writer.html' %}
+					
+					{% include 'blog/blog-tags.html' %}
+
+					{% latestposts %}											
+					
+					{% include 'blog/blog-ads.html'%}
+				
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+<!-- End post-content Area -->
+{% endblock %}

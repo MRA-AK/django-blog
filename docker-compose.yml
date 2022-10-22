@@ -1,6 +1,14 @@
 version: "3.9"
 
 services:
+  redis:
+    container_name: redis
+    image: redis
+    restart: always
+    ports:
+      - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
   backend:
     build: .
     container_name: backend
@@ -12,3 +20,26 @@ services:
     environment:
       - SECRET_KEY=test_secret_key
       - DEBUG=True
+    depends_on:
+      - redis
+
+  celery:
+    build: .
+    container_name: celery
+    command: celery -A core worker -l info
+    volumes:
+      - ./core:/app
+    depends_on:
+      - redis
+      - backend
+    
+  beat:
+    build: .
+    container_name: beat
+    command: celery -A core beat -l info
+    volumes:
+      - ./core:/app
+    depends_on:
+      - redis
+      - celery
+      - backend

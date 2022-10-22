@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load blog_tags %}
+
+{% block content %}
+<!-- start banner Area -->
+<section class="relative about-banner">
+	<div class="overlay overlay-bg"></div>
+	<div class="container">
+		<div class="row d-flex align-items-center justify-content-center">
+			<div class="about-content col-lg-12">
+				<h1 class="text-white">
+					{{post.title}}
+				</h1>
+				<p class="text-white link-nav"><a href="{% url 'main_index' %}">Back to home page</a></p>
+			</div>
+		</div>
+	</div>
+</section>
+<!-- End banner Area -->
+
+<!-- Start post-content Area -->
+<section class="post-content-area single-post-area">
+	<div class="container">
+		<div class="row">
+            <h3>You have been logged out. Hope to see you soon.</h3>
+		</div>
+	</div>
+</section>
+{% endblock content %}
