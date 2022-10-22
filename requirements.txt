@@ -1,3 +1,33 @@
 Django>3.2,<3.3
 python-decouple==3.6
+django-taggit
+Pillow
 django-crispy-forms==1.14.0
+
+# Django rest framework
+djangorestframework
+markdown
+django-filter
+coreapi
+drf-yasg[validation]
+djangorestframework-simplejwt
+django-cors-headers
+
+# Add dummy data
+Faker
+
+# Background Process
+celery
+redis
+
+# Cache
+django-redis
+
+# Reformat, Linting and Tests
+black
+flake8
+pytest
+pytest-django
+
+# Deploy
+gunicorn
