@@ -7,16 +7,16 @@ Based on https://github.com/AliBigdeli/mysite project.
 2. Clone the repository.
 3. Run the docker compose: `docker-compose -f docker-compose-production.yml up -d --build` 
 4. Create database: `docker exec backend python manage.py migrate`
-5. Open your browser and go to http://localhost:8000/.
+5. Open your browser and go to http://localhost/.
 
 ## API
-Blog endpoints: http://localhost:8000/blog/api/v1/
+Blog endpoints: http://localhost/blog/api/v1/
 
 #### API Docs:
-- DRF built-in documentation: http://localhost:8000/drf-docs/
-- Swagger documentation: http://localhost:8000/swagger/
-- Redoc documentation: http://localhost:8000/redoc/
-- Export swagger in json format: http://localhost:8000/swagger/output.json/
+- DRF built-in documentation: http://localhost/drf-docs/
+- Swagger documentation: http://localhost/swagger/
+- Redoc documentation: http://localhost/redoc/
+- Export swagger in json format: http://localhost/swagger/output.json/
 
 ## Celery Beat
 The celery beat creates a new post automatically every 10 minutes.
