@@ -11,4 +11,4 @@ exclude =
     manage.py,
 
 ignore =
-    E501, E126
+    E501, E126, F811

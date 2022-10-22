@@ -18,10 +18,6 @@ class PostSerializer(ModelSerializer):
 
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        request = self.context.get("request")
-        # if request.parser_context.get("kwargs").get("pk"):
-        #     rep["created_at"] = instance.created_date
-        #     rep["updated_at"] = instance.updated_date
         rep['author'] = instance.author.username
         if rep['status']:
             rep['status'] = 'Yes'
@@ -48,10 +44,9 @@ class CommentSerializer(ModelSerializer):
         model = Comment
         fields = ['post', 'name', 'email', 'subject', 'message', 'approved', 'created_date', 'updated_date']
         read_only_fields = ['approved', 'created_date', 'updated_date']
-    
+
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        request = self.context.get("request")
         rep['post'] = instance.post.title
         if rep['approved']:
             rep['approved'] = 'Yes'

@@ -61,6 +61,6 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
         form.instance.post_id = self.kwargs["pk"]
         form.instance.approved = True
         return super().form_valid(form)
-    
+
     def get_success_url(self):
-         return reverse('blog:single', kwargs={'pk': self.kwargs["pk"]})
+        return reverse('blog:single', kwargs={'pk': self.kwargs["pk"]})

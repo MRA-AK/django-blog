@@ -28,10 +28,10 @@ def category():
 @pytest.fixture
 def post(category):
     post = Post.objects.create(
-        title = "Test title",
-        content = "Test content",
-        counted_views = 10,
-        status = True,
+        title="Test title",
+        content="Test content",
+        counted_views=10,
+        status=True,
     )
     post.category.set([category.pk])
     post.save()
@@ -51,11 +51,11 @@ class TestPostsAPI:
         """ Creating a post with unauthorized user """
         url = reverse("blog:api_v1:post-list")
         post = {
-            "title" : "Test title",
-            "content" : "Test content",
-            "category" : category.pk,
-            "counted_views" : 10,
-            "status" : True,
+            "title": "Test title",
+            "content": "Test content",
+            "category": category.pk,
+            "counted_views": 10,
+            "status": True,
         }
         response = api_client.post(url, post)
         assert response.status_code == 401
@@ -72,11 +72,11 @@ class TestPostsAPI:
         url = reverse("blog:api_v1:post-list")
         api_client.force_authenticate(user=common_user)
         post = {
-            "title" : "Test post",
-            "content" : "Test content",
-            "category" : category.pk,
-            "counted_views" : 10,
-            "status" : True,
+            "title": "Test post",
+            "content": "Test content",
+            "category": category.pk,
+            "counted_views": 10,
+            "status": True,
         }
         response = api_client.post(url, post)
 
@@ -90,10 +90,10 @@ class TestPostsAPI:
         url = reverse("blog:api_v1:post-list")
         api_client.force_authenticate(user=common_user)
         post = {
-            "title" : "Test title",
-            "content" : "Test content",
-            "counted_views" : 10,
-            "status" : True,
+            "title": "Test title",
+            "content": "Test content",
+            "counted_views": 10,
+            "status": True,
         }
         response = api_client.post(url, post)
         assert response.status_code == 400
@@ -103,21 +103,21 @@ class TestPostsAPI:
         url = reverse("blog:api_v1:post-list")
         api_client.force_authenticate(user=common_user)
         post = {
-            "title" : "Test post",
-            "content" : "Test content",
-            "category" : category.pk,
-            "counted_views" : 10,
-            "status" : True,
+            "title": "Test post",
+            "content": "Test content",
+            "category": category.pk,
+            "counted_views": 10,
+            "status": True,
         }
         # Create the first post
         response = api_client.post(url, post)
 
         post = {
-            "title" : "Test post2",
-            "content" : "Test content2",
-            "category" : category.pk,
-            "counted_views" : 10,
-            "status" : True,
+            "title": "Test post2",
+            "content": "Test content2",
+            "category": category.pk,
+            "counted_views": 10,
+            "status": True,
         }
         created_post = Post.objects.all().last()
         url = reverse("blog:api_v1:post-detail", kwargs={'pk': created_post.id})
@@ -134,11 +134,11 @@ class TestPostsAPI:
         url = reverse("blog:api_v1:post-list")
         api_client.force_authenticate(user=common_user)
         post = {
-            "title" : "Test post",
-            "content" : "Test content",
-            "category" : category.pk,
-            "counted_views" : 10,
-            "status" : True,
+            "title": "Test post",
+            "content": "Test content",
+            "category": category.pk,
+            "counted_views": 10,
+            "status": True,
         }
         # Create
         response = api_client.post(url, post)
@@ -160,21 +160,21 @@ class TestCommentsAPI:
         url = reverse("blog:api_v1:comment-list")
         response = api_client.get(url)
         assert response.status_code == 401
-    
+
     def test_create_comment_with_unauthorized_user_401_status(self, api_client, post):
         """ Creating a comment with unauthorized user """
         url = reverse("blog:api_v1:comment-list")
         comment = {
-            "post" : post.pk,
-            "name" : "Test user",
-            "email" : "test@gmail.com",
-            "subject" : "Test comment",
-            "message" : "This is a test comment",
-            "approved" : True,
+            "post": post.pk,
+            "name": "Test user",
+            "email": "test@gmail.com",
+            "subject": "Test comment",
+            "message": "This is a test comment",
+            "approved": True,
         }
         response = api_client.post(url, comment)
         assert response.status_code == 401
-    
+
     def test_get_comments_response_200_status(self, api_client, common_user):
         """ Getting comments with authorized user """
         url = reverse("blog:api_v1:comment-list")
@@ -187,12 +187,12 @@ class TestCommentsAPI:
         url = reverse("blog:api_v1:comment-list")
         api_client.force_authenticate(user=common_user)
         comment = {
-            "post" : post.pk,
-            "name" : "Test user",
-            "email" : "test@gmail.com",
-            "subject" : "Test comment",
-            "message" : "This is a test comment",
-            "approved" : True,
+            "post": post.pk,
+            "name": "Test user",
+            "email": "test@gmail.com",
+            "subject": "Test comment",
+            "message": "This is a test comment",
+            "approved": True,
         }
         response = api_client.post(url, comment)
 
@@ -206,11 +206,11 @@ class TestCommentsAPI:
         url = reverse("blog:api_v1:comment-list")
         api_client.force_authenticate(user=common_user)
         comment = {
-            "name" : "Test user",
-            "email" : "test@gmail.com",
-            "subject" : "Test comment",
-            "message" : "This is a test comment",
-            "approved" : True,
+            "name": "Test user",
+            "email": "test@gmail.com",
+            "subject": "Test comment",
+            "message": "This is a test comment",
+            "approved": True,
         }
         response = api_client.post(url, comment)
         assert response.status_code == 400
@@ -220,23 +220,23 @@ class TestCommentsAPI:
         url = reverse("blog:api_v1:comment-list")
         api_client.force_authenticate(user=common_user)
         comment = {
-            "post" : post.pk,
-            "name" : "Test user",
-            "email" : "test@gmail.com",
-            "subject" : "Test comment",
-            "message" : "This is a test comment",
-            "approved" : True,
+            "post": post.pk,
+            "name": "Test user",
+            "email": "test@gmail.com",
+            "subject": "Test comment",
+            "message": "This is a test comment",
+            "approved": True,
         }
         # Create the first post
         response = api_client.post(url, comment)
 
         comment = {
-            "post" : post.pk,
-            "name" : "Test user",
-            "email" : "test@gmail.com",
-            "subject" : "Test comment2",
-            "message" : "This is a test comment",
-            "approved" : True,
+            "post": post.pk,
+            "name": "Test user",
+            "email": "test@gmail.com",
+            "subject": "Test comment2",
+            "message": "This is a test comment",
+            "approved": True,
         }
         created_post = Comment.objects.all().last()
         url = reverse("blog:api_v1:comment-detail", kwargs={'pk': created_post.id})
@@ -253,12 +253,12 @@ class TestCommentsAPI:
         url = reverse("blog:api_v1:comment-list")
         api_client.force_authenticate(user=common_user)
         comment = {
-            "post" : post.pk,
-            "name" : "Test user",
-            "email" : "test@gmail.com",
-            "subject" : "Test comment",
-            "message" : "This is a test comment",
-            "approved" : True,
+            "post": post.pk,
+            "name": "Test user",
+            "email": "test@gmail.com",
+            "subject": "Test comment",
+            "message": "This is a test comment",
+            "approved": True,
         }
         # Create
         response = api_client.post(url, comment)

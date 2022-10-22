@@ -18,11 +18,11 @@ def create_new_post():
 
     # Create a new posts
     post = Post.objects.create(
-        author = user,
-        title = fake.text(max_nb_chars=20),
-        content = fake.paragraph(nb_sentences=5),
-        counted_views = fake.random_int(10, 100),
-        status = random.choice([True, False]),
+        author=user,
+        title=fake.text(max_nb_chars=20),
+        content=fake.paragraph(nb_sentences=5),
+        counted_views=fake.random_int(10, 100),
+        status=random.choice([True, False]),
     )
     post.category.set([category.pk])
     post.save()

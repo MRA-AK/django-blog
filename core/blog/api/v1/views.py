@@ -5,7 +5,6 @@ from rest_framework.permissions import IsAuthenticated
 
 from blog.models import Post, Category, Comment
 from .serializers import PostSerializer, CategorySerializer, CommentSerializer
-from .paginations import PostPagination
 
 
 class PostViewSet(ModelViewSet):

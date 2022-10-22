@@ -4,7 +4,7 @@ from faker import Faker
 import random
 
 from django.contrib.auth.models import User
-from blog.models import Post, Category, Comment
+from blog.models import Post, Category
 
 
 class Command(BaseCommand):
@@ -24,11 +24,11 @@ class Command(BaseCommand):
         for _ in range(5):
             # Create five dummy posts
             post = Post.objects.create(
-                author = user,
-                title = self.fake.text(max_nb_chars=20),
-                content = self.fake.paragraph(nb_sentences=5),
-                counted_views = self.fake.random_int(10, 100),
-                status = random.choice([True, False]),
+                author=user,
+                title=self.fake.text(max_nb_chars=20),
+                content=self.fake.paragraph(nb_sentences=5),
+                counted_views=self.fake.random_int(10, 100),
+                status=random.choice([True, False]),
             )
             post.category.set([category.pk])
             post.save()
